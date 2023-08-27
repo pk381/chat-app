@@ -29,13 +29,18 @@
 
         <div id="chat" class=" card card-body w-50 m-auto">
 
-            <p class="float-left">other message</p>
-            <p class="float-right">my message</p>
+          <ul class="list-group">
+            <li class="list-group-item">A simple default list group item</li>
+          
+            <li class="list-group-item list-group-item-primary">A simple primary list group item</li>
+            <li class="list-group-item list-group-item-secondary">A simple secondary list group item</li>
+            
+          </ul>
 
         </div>
 
         <form action="message" method="post" class="form-inline mb-3 d-flex flex-row align-items-center mx-auto w-50 my-2 fixed-bottom">
-            <input type="text">
+            <input type="text" id="message">
             <button id="send">Send</button>
         </form>
 
