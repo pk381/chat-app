@@ -11,6 +11,8 @@ const app = express();
 // routes
 const userRoute = require('./routes/user');
 
+const mainRoute = require('./routes/main');
+
 // static files
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -24,6 +26,12 @@ app.use(cors({
 }))
 
 app.use('/user', userRoute);
+app.use('/main', mainRoute);
+
+
+app.get('/', (req, res, next)=>{
+    res.redirect('/user/sign_up');
+})
 
 sequelize.sync()
 .then(res=>{

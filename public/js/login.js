@@ -32,7 +32,9 @@ document.getElementById("submit").addEventListener('click', async (e)=>{
         }
         else if(res.data.message === "loginSuccesssfully"){
             localStorage.setItem('token', res.data.token);
-            localStorage.setItem('userName', res.data.userName)
+            localStorage.setItem('userName', res.data.userName);
+
+            window.location.href = "/main";
             
         }
     }
