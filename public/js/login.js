@@ -16,14 +16,25 @@ document.getElementById("submit").addEventListener('click', async (e)=>{
 
         let res = await axios.post("http://localhost:4000/user/login", obj);
 
-        console.log(res.data.message, res.data.token);
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('isPremium', res.data.isPremium);
-        localStorage.setItem('userName', res.data.userName)
+        console.log(res.data.message);
 
-        console.log("/expense");
 
-        window.location.href="/expense";
+        if(res.data.message === "userNotExist"){
+
+            console.log("user not exist");
+
+            alert("User Not Exist Please SignUp");
+        }
+        else if(res.data.message === "passwordIncorrect"){
+
+            alert("Password is Incorrect");
+            
+        }
+        else if(res.data.message === "loginSuccesssfully"){
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('userName', res.data.userName)
+            
+        }
     }
     catch(err){
         console.log(err);

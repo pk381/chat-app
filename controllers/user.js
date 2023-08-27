@@ -1,9 +1,17 @@
 const path = require('path');
 const rootDir = require('../util/path');
 
+const jwt = require('jsonwebtoken');
+
 const bcrypt = require('bcrypt');
 
 const User = require('../models/user');
+
+
+function generateToken(data){
+
+    return jwt.sign(data, 'secretKey');
+}
 
 exports.getSignUp = (req, res, next)=>{
 
@@ -55,4 +63,40 @@ exports.postSignUp = async (req, res, next)=>{
 exports.getLogin = (req, res, next)=>{
 
     res.sendFile(path.join(rootDir, "views", "login.html"));
+}
+
+exports.postLogin = async (req, res, next)=>{
+
+    try{
+
+        const user = await User.findOne({where: {email: req.body.email}});
+
+        if(user === null){
+
+            console.log("user not exist");
+
+            res.status(201).json({message: 'userNotExist'});
+        }
+        else{
+
+            bcrypt.compare(req.body.password, user.password, async (err, result)=>{
+
+                if(err){
+                    res.status(201).json({message: 'passwordIncorrect'});
+                    console.log(err);
+                }
+                else{
+
+                    res.status(201).json({ userName: user.name, message: 'loginSuccesssfully', token: generateToken(user.id)});
+                }
+            })
+        }
+        
+
+    }catch(err){
+
+        res.status(400).json({message: 'somthing went wrong'});
+
+        console.log(err);
+    }
 }
