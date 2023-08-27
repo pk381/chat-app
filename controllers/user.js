@@ -51,3 +51,8 @@ exports.postSignUp = async (req, res, next)=>{
     }
 
 }
+
+exports.getLogin = (req, res, next)=>{
+
+    res.sendFile(path.join(rootDir, "views", "login.html"));
+}
