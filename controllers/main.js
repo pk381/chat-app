@@ -37,3 +37,15 @@ exports.postMessage = async (req, res, next)=>{
         console.log(err);
     }
 }
+
+exports.getMessages = async (req, res, next)=>{
+
+    try{
+        const messages = await  Message.findAll({where: {userId: req.user.id}});
+
+        res.status(201).json({messages: messages})
+    }
+    catch(err){
+        console.log(err);
+    }
+}
