@@ -39,7 +39,7 @@ exports.postSignUp = async (req, res, next)=>{
             });
         }
         else{
-            res.status(400).json({message: 'userExist'});
+            res.status(201).json({message: 'userExist'});
         }
         
 

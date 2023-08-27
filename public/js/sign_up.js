@@ -18,11 +18,14 @@ document.getElementById('sign_up').addEventListener('click', async (e)=>{
 
     try{
         const res = await axios.post("http://localhost:4000/user/sign_up", obj);
+        
 
         if(res.data.message === 'userExist'){
-            message.innerText = "Email already exist";
+            alert('email already exist please login');
         }
         else{
+
+            alert('account created successfully');
 
             window.location.href = "/user/login";
         }      
