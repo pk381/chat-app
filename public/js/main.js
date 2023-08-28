@@ -36,8 +36,12 @@ async function getMessages() {
   });
 }
 
-getMessages();
 
+setInterval(()=>{ 
+  let dispaly = document.getElementById('chats');
+  dispaly.innerHTML = "";
+  getMessages();
+}, 1000);
 
 
 function showMessage(message){
