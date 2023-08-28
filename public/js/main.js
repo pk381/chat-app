@@ -30,7 +30,29 @@ async function getMessages() {
     headers: { Authorization: token },
   });
 
-  console.log(res.data.messages);
+  res.data.messages.forEach(element => {
+    console.log(element.message);
+    showMessage(element.message);
+  });
 }
 
 getMessages();
+
+
+
+function showMessage(message){
+
+  let dispaly = document.getElementById('chats');
+
+  let li = document.createElement('li');
+
+  li.className = "";
+
+  let p = document.createElement('p');
+
+  p.appendChild(document.createTextNode(message));
+
+  li.appendChild(p);
+
+  dispaly.appendChild(li);
+}
