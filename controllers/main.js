@@ -1,18 +1,8 @@
 const path = require('path');
 const rootDir = require('../util/path');
-
-const jwt = require('jsonwebtoken');
-
-const bcrypt = require('bcrypt');
-
-const User = require('../models/user');
 const Message = require('../models/message');
 
-
-// function generateToken(data){
-
-//     return jwt.sign(data, 'secretKey');
-// }
+const { Op } = require("sequelize");
 
 exports.getMain = (req, res, next)=>{
 
@@ -40,10 +30,33 @@ exports.postMessage = async (req, res, next)=>{
 
 exports.getMessages = async (req, res, next)=>{
 
-    try{
-        const messages = await  Message.findAll({where: {userId: req.user.id}});
+    const lastId = parseInt(req.params.lastId);
 
-        res.status(201).json({messages: messages})
+    try{
+
+        if(lastId == 0){
+
+            const messages = await Message.findAll({
+                where: {
+                    userId: req.user.id
+                }
+            });
+
+            res.status(201).json({messages: messages});
+        
+        }
+        else{
+
+            const messages = await  Message.findAll({
+                where: {
+                    id: { [Op.gt]: lastId},
+                    userId: req.user.id
+                }
+            });
+
+            res.status(201).json({messages: messages});
+
+        }
     }
     catch(err){
         console.log(err);
