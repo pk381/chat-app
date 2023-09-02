@@ -11,10 +11,15 @@ const app = express();
 // routes
 const userRoute = require('./routes/user');
 const mainRoute = require('./routes/main');
+const groupRoute = require('./routes/group');
 
 // database tables
 const User = require('./models/user');
 const Message = require('./models/message');
+const Group = require('./models/group');
+const GroupMessage = require('./models/groupMessage');
+const GroupUser = require('./models/groupUser');
+const Friend = require('./models/friend');
 
 // static files
 app.use(express.static(path.join(__dirname, "public")));
@@ -28,6 +33,7 @@ app.use(cors({origin: "*",credentials: true}));
 // serving routes
 app.use('/user', userRoute);
 app.use('/main', mainRoute);
+app.use('/group', groupRoute);
 
 
 app.get('/', (req, res, next)=>{
@@ -39,6 +45,13 @@ app.get('/', (req, res, next)=>{
 User.hasMany(Message);
 Message.belongsTo(User);
 
+Group.hasMany(GroupUser);
+
+Group.hasMany(GroupMessage);
+GroupMessage.belongsTo(Group);
+
+User.hasMany(Friend);
+Friend.belongsTo(User);
 
 // syncing database
 sequelize.sync()

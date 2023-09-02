@@ -3,6 +3,33 @@
     padding: 0px;
 }
 
+#add_to_group, #make_new_friend_form, #create_group_form, #group_btns{
+    display: none;
+}
+
+.form_cut_btn{
+    width: 100%;
+    height: 20%;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.form_cut_btn h4{
+    margin-left: 10px;
+}
+
+.form_cut_btn .cut_btn{
+    width: 15%;
+    height: 80%;
+    background-color: rgb(220, 227, 234);
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
 header{
     height: 50px;
     display: flex;
@@ -14,6 +41,61 @@ header{
     color: white;
 }
 
+#group_forms{
+    display: flex;
+    flex-direction: column;
+    padding: 2px 5px;
+    width: 300px;
+    border-radius: 5px;
+    height: 200px;  
+    position: fixed;
+    bottom: 100px;
+    font-size: large;
+    left: 100px;
+}
+
+
+.form_input{
+    margin: 5px 2px;
+    height: 50%;
+    width: 95%;
+    display: flex;
+    /* border: 1px solid black; */
+    margin: 10px 0px;
+    flex-direction: column;
+}
+
+.form_input input{
+    margin: 10px 0px;
+    height: 25px;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding-left: 4px;
+    font-size: large;
+}
+
+.group_form{
+    display: flex;
+    background-color: aqua;
+    border: 1px solid black;
+    padding: 3px 2px;
+    border-radius: 5px;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.group_form .submit_btns{
+    height: 40px;
+    outline: none;
+    border: 1px solid black;
+    background-color: rgb(131, 236, 201);
+    border-radius: 5px;
+    width: 50%;
+    margin: 20px 0px;
+}
 .main{
     position: absolute;
     top: 50px;
@@ -33,7 +115,7 @@ header{
     align-items: center;
 }
 
-form{
+.message_form{
     margin-bottom: 10px;
     height: 30px;
     display: flex;
@@ -47,7 +129,7 @@ form{
 #chats{
     border: 1px solid black;
     border-radius: 6px;
-    overflow-y: scroll;
+    overflow-y: auto;
     background-color: blueviolet;
     width: 98%;
     margin: 5px 0px;
@@ -70,7 +152,7 @@ form{
 }
 
 
-form input{
+.message_form input{
     width: 75%;
     border: 1px solid black;
     border-radius: 4px;
@@ -80,7 +162,7 @@ form input{
 
 }
 
-form button{
+.message_form button{
     width: 20%;
     font-size: large;
     outline: none;
@@ -93,4 +175,75 @@ form button{
     background-color: aqua;
     margin: 1px 2px;
     width: 40%;
+    height: 99.8%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.panels{
+    margin: 2px 2px;
+    display: flex;
+    justify-content: center;
+    height: 6%;
+    width: 98%;
+    display: flex;
+}
+
+.panels button{
+    width: 50%;
+    border-radius: 5px;
+    background-color: rgb(165, 216, 216);
+    border: 1px solid aqua;
+    outline: none;
+}
+
+.u_list{
+    background-color: rgb(227, 242, 237);
+    display: flex;
+    width: 100%;
+    /* align-items: center; */
+    flex-direction: column;
+}
+
+.list{
+    /* border: 1px solid black; */
+    background-color: antiquewhite;
+    width: 99%;
+    height: 50px;
+    margin: 1px 1px;
+
+    display: flex;
+    align-items: center;
+}
+
+.list .list_btn{
+
+    width: fit-content;
+    padding: 4px 5px;
+    font-size: large;
+    margin: 0px 4px;
+}
+.display{
+    background-color: aquamarine;
+    height: 93%;
+    width: 99%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+.show_frnd_or_grp{
+    display: flex;
+    flex-direction: column;
+    border:  1px solid black;
+    height: 100%;
+    border-radius: 5px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.bottom_panel{
+    bottom: 0;
 }

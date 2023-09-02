@@ -1,8 +1,6 @@
 const path = require('path');
 const rootDir = require('../util/path');
-
 const jwt = require('jsonwebtoken');
-
 const bcrypt = require('bcrypt');
 
 const User = require('../models/user');
@@ -87,7 +85,7 @@ exports.postLogin = async (req, res, next)=>{
                 }
                 else{
 
-                    res.status(201).json({ userName: user.name, message: 'loginSuccesssfully', token: generateToken(user.id)});
+                    res.status(201).json({ userName: user.name, message: 'loginSuccessfully', token: generateToken(user.id)});
                 }
             })
         }

@@ -30,7 +30,7 @@ document.getElementById("submit").addEventListener('click', async (e)=>{
             alert("Password is Incorrect");
             
         }
-        else if(res.data.message === "loginSuccesssfully"){
+        else if(res.data.message === "loginSuccessfully"){
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('userName', res.data.userName);
 

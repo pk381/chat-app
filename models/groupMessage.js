@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../util/database');
 
-const Message = sequelize.define('message', {
+const GroupMessage = sequelize.define('groupMessage', {
     id:{
         type: Sequelize.DataTypes.INTEGER,
         autoIncrement: true,
@@ -10,7 +10,7 @@ const Message = sequelize.define('message', {
         primaryKey: true
     },
     message: Sequelize.DataTypes.STRING,
-    toUserId: Sequelize.DataTypes.INTEGER
+    userId: Sequelize.DataTypes.INTEGER
 });
 
-module.exports = Message;
+module.exports = GroupMessage;

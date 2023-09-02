@@ -5,16 +5,78 @@ document.getElementById("user_name").innerText =
 // token
 const token = localStorage.getItem("token");
 
-document.getElementById("send").addEventListener("click", async (e) => {
+// getting all friends
+let selectedFriend;
+document.getElementById("friends_btn").addEventListener("click", async (e) => {
+
+  e.target.style = "background-color: rgb(27, 169, 169)";
+  document.getElementById("group_btns").style = "display: none";
+  document.getElementById("chat_btns").style = "display: flex";
+  document.getElementById("friends").style = "display: flex";
+  document.getElementById("groups").style = "display: none";
+  document.getElementById("send_group_message_form").style = "display: none";
+  document.getElementById("send_message_form").style = "display: flex";
+
+  document.getElementById("groups_btn").style =
+    "background-color: rgb(165, 216, 216)";
+
+  try {
+    const res = await axios.get("http://localhost:4000/main/all-friend", {
+      headers: { Authorization: token },
+    });
+
+    const friends = res.data.friends;
+
+    selectedFriend = friends[0];
+
+    for (let friend of friends) {
+      showFriendOrGroup(friend, "friends");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+document.getElementById("friends_btn").click();
+
+
+// making new friend
+document.getElementById("make_new_friend").addEventListener("click", (e) => {
+  document.getElementById("add_user_to_group_btn").style =
+    "background-color: rgb(165, 216, 216)";
+  e.target.style = "background-color: rgb(27, 169, 169)";
+  document.getElementById("make_new_friend_form").style = "display: flex";
+});
+
+document.getElementById("new_friend").addEventListener("click", async (e) => {
   e.preventDefault();
 
   try {
     const obj = {
-      message: document.getElementById("message").value,
+      friendsEmail: document.getElementById("email_of_friend").value,
     };
 
-    // console.log(token);
+    const res = await axios.post("http://localhost:4000/main/new-friend", obj, {
+      headers: { Authorization: token },
+    });
 
+    showFriendOrGroup(res.data.newFriend, "friends");
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+// sending messages
+document.getElementById("send").addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  console.log("sending to friend", selectedFriend);
+  try {
+    const obj = {
+      message: document.getElementById("message").value,
+      toFriendId: selectedFriend.id
+    };
     const res = await axios.post("http://localhost:4000/main/message", obj, {
       headers: { Authorization: token },
     });
@@ -25,6 +87,7 @@ document.getElementById("send").addEventListener("click", async (e) => {
   }
 });
 
+// showing messages
 let lastShownMessageId = 0;
 
 async function getMessages() {
@@ -91,9 +154,9 @@ async function getMessages() {
   }
 }
 
-setInterval(() => {
-  getMessages();
-}, 1000);
+// setInterval(() => {
+//   getMessages();
+// }, 1000);
 
 // getMessages();
 
