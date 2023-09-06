@@ -2,10 +2,13 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
 const sequelize = require('./util/database');
+const fileupload = require('express-fileupload');
 
+// using socket
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
 
 // routes
@@ -26,6 +29,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // body parser in json
 app.use(bodyParser.json());
+app.use(fileupload());
 
 // cors
 app.use(cors({origin: "*",credentials: true}));
@@ -53,11 +57,40 @@ GroupMessage.belongsTo(Group);
 User.hasMany(Friend);
 Friend.belongsTo(User);
 
+
+
+// making connection
+let allUsers = [];
+
+io.on('connection', socket =>{
+
+    let name = socket.handshake.auth.name;
+    allUsers.push(name);
+    io.sockets.emit('getAllUsers', allUsers);
+
+    socket.on('message-sent', (message)=>{
+        io.sockets.emit('broadcast', message);
+    });
+
+
+    socket.on('group-message', (groupMessage)=>{
+
+        io.sockets.emit('groupBroadcast', groupMessage);
+    })
+
+    socket.on('disconnect', ()=>{
+        let name = socket.handshake.auth.name;
+        allUsers = allUsers.filter(logoutName => name != logoutName);
+        io.sockets.emit('getAllUsers', allUsers);
+    });
+
+});
+
 // syncing database
 sequelize.sync()
 .then(res=>{
     console.log("listening");
-    app.listen(4000);
+    server.listen(4000);
 
 }).catch(err=>{
     console.log(err);
