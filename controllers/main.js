@@ -4,6 +4,22 @@ const Message = require("../models/message");
 const Friend = require("../models/friend");
 const User = require('../models/user');
 
+var CronJob = require('cron').CronJob;
+
+const oldMessage = require('../models/oldChats');
+
+var CronJob = require('cron').CronJob;
+var job = new CronJob(
+    '* * * * * *',
+    function() {
+        console.log('You will see this message every second');
+    },
+    null,
+    true,
+    'America/Los_Angeles'
+);
+// job.start() - See note below when to use this
+
 const { Op } = require("sequelize");
 
 exports.getMain = (req, res, next) => {
